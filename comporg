@@ -1,0 +1,96 @@
+import java.util.Scanner;
+public class number{
+    public static void main(String args[]){
+        Scanner scan =new Scanner(System.in);
+        System.out.println("Basic Converter \n [1] Binary Converter \n [2] Octal Converter \n [3] HexaDecimal Converter \n");
+        String in = scan.next();
+        switch (in){
+            case "1": 
+                System.out.println("Enter number to be converted");
+                System.out.println(Get_binary(scan.nextFloat()));
+                break;
+            case "2":System.out.println("Enter number to be converted");
+                System.out.println(Get_Octal(scan.nextFloat()));
+                break;
+            case "3":System.out.println("Enter number to be converted");
+                System.out.println(Get_Hexadecimal(scan.nextFloat()));
+                break;
+            default: ;break;
+        }
+    }
+    
+public static boolean is_Decimal(float num){
+     String number = Float.toString(num);
+
+         if ((num % 1)!= 0){
+             return true;
+             }
+     return false;       
+    }
+
+public static String reverse(String to_be_reversed){
+    String reversed = "";
+    for (int i=to_be_reversed.length()-1; i > -1 ;i-- ){
+        reversed += to_be_reversed.charAt(i);
+    }
+    return reversed;    
+}    
+    
+    
+public static float Get_decimal_val(float num){
+    return num % 1;
+    }
+    
+    
+public static float Get_whole(float num){
+    return num - Get_decimal_val(num);
+}
+
+
+    public static String Get_binary(float num){
+        String binary = "";
+        while (num != 0){
+            num /= 2;
+            if (is_Decimal(num) == true){
+                binary += "1";
+                num = Get_whole(num);
+                }
+                else{
+                    binary += "0";
+                    }
+            }
+            return reverse(binary);
+        }
+        
+        
+public static String Get_Octal(float num){
+    String Octal= "";
+    while (num != 0 ){
+        num /= 8;
+            Octal += String.valueOf(Math.round(8.0 * Get_decimal_val(num)));
+            num = Get_whole(num);
+        }
+        return reverse(Octal);
+    }
+public static String Get_Hexadecimal(float num){
+    String Hexadecimal= "";
+    while(num != 0){
+        num /= 16;
+        if (Get_decimal_val(num) * 16 > 9){
+            switch(String.valueOf(Get_decimal_val(num)*16)){
+                case "10" : Hexadecimal += "A";break;
+                case "11" : Hexadecimal += "B";break;
+                case "12" : Hexadecimal += "C";break;
+                case "13" : Hexadecimal += "D";break;
+                case "14" : Hexadecimal += "E";break;
+                case "15" : Hexadecimal += "F";break;
+            }
+            }
+            else {
+                Hexadecimal += String.valueOf(Math.round(16.0 * Get_decimal_val(num)));
+                }
+              num = Get_whole(num);   
+        }
+       return reverse(Hexadecimal); 
+    }            
+} 
